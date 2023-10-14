@@ -26,7 +26,25 @@ html {
 	height: calc(100vh);
 }
 
+// Common Styles
+h1 {
+	margin-bottom: 0;
+}
+
+section {
+	padding: 1.6rem 8rem;
+}
+
+a {
+	text-decoration: none;
+	color: unset;
+}
+
 // General Utils
 .cursor-pointer {
 	cursor: pointer;
+}
+
+.rounded-lg {
+	border-radius: 50rem;
 }

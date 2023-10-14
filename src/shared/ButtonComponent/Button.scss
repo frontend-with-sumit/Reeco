@@ -1,0 +1,33 @@
+@import "../../colors.scss";
+
+.btn {
+	font-size: 1.6rem;
+	padding: 0.5rem 2.5rem;
+
+	&.btn-primary {
+		background: $primary-green;
+		border-color: $primary-green;
+
+		&:active {
+			background: $primary-green;
+			box-shadow: 0px 0px 6px $primary-green;
+		}
+	}
+
+	&.btn-outline-primary {
+		color: $primary-green;
+		font-weight: 600;
+		border-color: $primary-green;
+
+		&:active {
+			background: $primary-green;
+			border-color: $primary-green;
+			box-shadow: 0px 0px 6px $primary-green;
+		}
+
+		&:hover {
+			background: $primary-green;
+			color: $white;
+		}
+	}
+}
