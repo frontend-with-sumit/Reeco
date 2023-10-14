@@ -1,0 +1,60 @@
+@import "../../colors.scss";
+
+.navbar {
+	width: 100%;
+	background: $primary-green;
+	padding: 1.6rem 8rem;
+	height: 7rem;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	.logo {
+		font-size: 3rem;
+		font-weight: 800;
+	}
+
+	.badge {
+		background: $accent-green;
+		position: absolute;
+		left: -1rem;
+		top: -0.5rem;
+
+		border-radius: 50rem;
+		font-size: 1rem;
+	}
+
+	.dropdown {
+		&-toggle {
+			font-size: 1.6rem;
+			font-weight: 500;
+			color: $white;
+
+			&.show {
+				border: none;
+			}
+
+			&.btn-secondary {
+				background: transparent;
+				border: none;
+			}
+
+			&::after {
+				display: none;
+			}
+		}
+		
+		&-menu {
+			width: 100%;
+		}
+		&-item {
+			font-size: 1.6rem;
+			padding-block: 0.5rem;
+
+			&:hover {
+				background: $gray-100;
+			}
+		}
+	}
+}
