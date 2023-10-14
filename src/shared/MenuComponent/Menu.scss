@@ -1,0 +1,17 @@
+.custom-menu {
+	display: flex;
+	align-items: center;
+	gap: 4rem;
+
+	color: #fff;
+
+	&-content {
+		font-size: 1.6rem;
+		margin-bottom: 0;
+		font-weight: 500;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
