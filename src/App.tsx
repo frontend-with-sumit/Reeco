@@ -3,7 +3,10 @@ import "./App.scss";
 function App() {
 	return (
 		<main>
-			<h1>Let's get started with Reeco Project 🚀</h1>
+			<h4>Navbar</h4>
+			<h4>Header</h4>
+			<h4>Detail</h4>
+			<h4>ItemTable</h4>
 		</main>
 	);
 }
