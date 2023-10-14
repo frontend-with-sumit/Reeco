@@ -1,4 +1,5 @@
 import "./App.scss";
+import Header from "./components/HeaderComponent/Header";
 import Navbar from "./components/NavComponent/Navbar";
 
 function App() {
@@ -7,9 +8,8 @@ function App() {
 			<Navbar />
 			<div className="container-fluid">
 				<div className="row">
-					<div className="col-sm-12"></div>
-					<div className="col-sm-12">
-						<h4>Header</h4>
+					<div className="col-sm-12 p-0">
+						<Header />
 					</div>
 					<div className="col-sm-12">
 						<h4>Detail</h4>

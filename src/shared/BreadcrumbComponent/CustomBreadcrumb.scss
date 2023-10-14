@@ -1,0 +1,13 @@
+.breadcrumb {
+	&-item {
+		font-size: 1.4rem;
+
+		&.last-item a {
+			text-decoration: underline;
+		}
+
+		& + &::before {
+			content: "\003E";
+		}
+	}
+}
