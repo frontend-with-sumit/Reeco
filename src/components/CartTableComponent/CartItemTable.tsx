@@ -1,18 +1,23 @@
 import { PiCheckBold } from "react-icons/pi";
 import { IoCloseOutline } from "react-icons/io5";
+import { capitalize } from "lodash";
 
 import Button from "../../shared/components/ButtonComponent/Button";
-import Badge from "../../shared/components/BadgeComponent/Badge";
 import { CartItem } from "../../shared/types";
 
 import Avocado from "../../assets/avocado.jpg";
 
 interface Props {
-	items: CartItem[];
-	onUpdateProduct: (type: string, item: object) => void;
+	items?: CartItem[];
+	onApproveOrder: (id: number, status: string) => void;
+	onUpdateProduct: (type: string, item: { id: number; name?: string }) => void;
 }
 
-const CartItemTable = ({ items, onUpdateProduct }: Props) => {
+const CartItemTable = ({
+	items = [],
+	onApproveOrder,
+	onUpdateProduct,
+}: Props) => {
 	return (
 		<div className="cart-item-table">
 			<table className="table">
@@ -44,35 +49,40 @@ const CartItemTable = ({ items, onUpdateProduct }: Props) => {
 								<div className="flex-center justify-content-between">
 									{/*
                                     TODO:
-                                    1. Change the color of the button based on status
                                     3. change the text-btn color based on status
 								*/}
 									<div>
 										{item?.status && (
-											<Badge
-												text={item?.status || ""}
-												className={item?.status}
-											/>
+											<p className={`${item?.status} badge rounded-lg`}>
+												{capitalize(item?.status) || ""}
+											</p>
 										)}
 									</div>
 									<div className="btn-grp">
 										<Button
 											type="text"
-											onClick={() =>
-												onUpdateProduct("confirm", {
-													id: item?.id,
-													status: "approved",
-												})
+											onClick={() => onApproveOrder(item?.id, "approved")}
+											disabled={
+												item?.status === "approved" || item.status !== ""
 											}
 										>
-											<PiCheckBold size={18} />
+											<PiCheckBold
+												size={18}
+												color={item?.status === "approved" ? "#66bb6a" : "#000"}
+											/>
 										</Button>
 										<Button
 											type="text"
 											onClick={() =>
 												onUpdateProduct("confirm", {
 													id: item?.id,
+													name: item?.name,
 												})
+											}
+											disabled={
+												["missing-urgent", "missing"].includes(
+													item?.status || ""
+												) || item.status !== ""
 											}
 										>
 											<IoCloseOutline size={24} />

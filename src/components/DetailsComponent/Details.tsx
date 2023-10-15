@@ -3,7 +3,7 @@ import DetailItem from "./DetailItem";
 import "./Details.scss";
 
 interface Props {
-	cart: Cart;
+	cart?: Cart;
 }
 
 const Details = ({ cart }: Props) => {

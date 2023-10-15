@@ -1,4 +1,6 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+// import { useDispatch } from "react-redux";
+import { isEmpty } from "lodash";
 import { FiSearch } from "react-icons/fi";
 import { PiPrinterLight } from "react-icons/pi";
 
@@ -7,33 +9,75 @@ import List from "../../shared/components/ListComponent/List";
 import ListItem from "../../shared/components/ListComponent/ListItem";
 import Button from "../../shared/components/ButtonComponent/Button";
 import ModalConfirm from "../../shared/components/Modals/ModalConfirm";
-import { Cart, Nullable } from "../../shared/types";
+import { CartItem, Nullable } from "../../shared/types";
 
 import EditProductModal from "./Modal/EditProductModal";
 import CartItemTable from "./CartItemTable";
 
 import "./CartTable.scss";
+import { makeApiRequest } from "../../shared/utils/apiRequest";
+import toast from "react-hot-toast";
+import { truncateText } from "../../shared/utils/stringUtils";
+// import { updateStatus } from "../../store/reducers";
 
 interface ModalInterface {
 	show: boolean;
 	type: Nullable<string>;
-	data: Nullable<object>;
+	data: { id: Nullable<number>; name?: string; status?: string } | null;
 }
 
 interface Props {
-	cart: Cart;
+	items?: CartItem[];
 }
 
-const CartTable = ({ cart }: Props) => {
+const CartTable = ({ items }: Props) => {
+	// const dispatch = useDispatch();
+
 	const [searchTerm, setSearchTerm] = useState<string>("");
+	const [cartItems, setCartItems] = useState<CartItem[]>();
 	const [modal, setModal] = useState<ModalInterface>({
 		show: false,
 		type: null,
 		data: null,
 	});
 
+	useEffect(() => {
+		if (!isEmpty(items)) {
+			console.log(items);
+			setCartItems(items);
+		}
+	}, [items]);
+
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
 		setSearchTerm(e.target.value);
+
+	const handleOrderStatus = async (
+		itemId: Nullable<number> = null,
+		status: string = ""
+	) => {
+		const cartItemsClone = [...(cartItems || [])];
+		const item = cartItemsClone.find((item) => item?.id === itemId);
+
+		if (item) {
+			item.status = status;
+
+			try {
+				const res = await makeApiRequest({
+					url: "/items/" + itemId,
+					method: "PATCH",
+					data: item,
+				});
+
+				if (res.status === 200) {
+					setCartItems(cartItemsClone);
+					toast.success("Status Updated");
+					// dispatch(updateStatus("approved"));
+				}
+			} catch (err) {
+				toast.error("Something went wrong");
+			}
+		}
+	};
 
 	return (
 		<div className="section cart-table">
@@ -69,8 +113,9 @@ const CartTable = ({ cart }: Props) => {
 			</List>
 
 			<CartItemTable
-				items={cart?.items}
-				onUpdateProduct={(type: string, data: object) =>
+				items={cartItems}
+				onApproveOrder={handleOrderStatus}
+				onUpdateProduct={(type: string, data: { id: number; name?: string }) =>
 					setModal({ show: true, type, data })
 				}
 			/>
@@ -79,8 +124,9 @@ const CartTable = ({ cart }: Props) => {
 				show={modal?.type === "confirm" && modal?.show}
 				onHide={() => setModal({ show: false, type: null, data: null })}
 				title="Missing Product"
-				description="Is chicken Breast Fillet urgent?"
-				onConfirm={() => {}}
+				description={`Is '${truncateText(modal?.data?.name)}' urgent?`}
+				onConfirm={() => handleOrderStatus(modal?.data?.id, "missing-urgent")}
+				onCancel={() => handleOrderStatus(modal?.data?.id, "missing")}
 				confirmLabel="Yes"
 				cancelLabel="No"
 			/>

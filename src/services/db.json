@@ -1,28 +1,35 @@
 {
-	"cart": [
-		{
-			"id": 1,
-			"items": [
-				{
-					"id": 1,
-					"name": "Chicken Filette",
-					"brand": "Hormel Black",
-					"price": 60.25,
-					"status": "",
-					"quantity": 1,
-					"category": "Food"
-				},
-				{
-					"id": 2,
-					"name": "Tomato Puree",
-					"brand": "Hormel Black",
-					"price": 20.07,
-					"status": "",
-					"quantity": 3,
-					"category": "Food"
-				}
-			],
-			"cart_total": 0
-		}
-	]
+  "cart": [
+    {
+      "id": 1,
+      "cart_total": 0
+    },
+    {
+      "id": 2,
+      "cart_total": 0
+    }
+  ],
+  "items": [
+    {
+      "id": 1,
+      "itemId": 1,
+      "cartId": 1,
+      "name": "Chicken Filette",
+      "brand": "Hormel Black",
+      "price": 60.25,
+      "status": "missing",
+      "quantity": 1,
+      "category": "Food"
+    },
+    {
+      "id": 2,
+      "cartId": 1,
+      "name": "Tomato Puree",
+      "brand": "Hormel Black",
+      "price": 20.07,
+      "status": "approved",
+      "quantity": 3,
+      "category": "Food"
+    }
+  ]
 }

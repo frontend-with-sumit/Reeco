@@ -67,11 +67,11 @@
 					font-size: 1.2rem;
 				}
 
-				.badge-missing,
-				.badge-missing-urgent,
-				.badge-approved {
+				.badge {
+					font-weight: 500;
+					font-size: 1.3rem;
 					color: $white;
-					border: none;
+					padding: 1rem 1.5rem;
 				}
 
 				.missing {
