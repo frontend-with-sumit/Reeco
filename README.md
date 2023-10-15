@@ -15,7 +15,7 @@ List the key features of your project. For example:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/frontend-with-sumit/Reeco/.git
+git clone https://github.com/frontend-with-sumit/Reeco.git
 cd Reeco
 ```
 
