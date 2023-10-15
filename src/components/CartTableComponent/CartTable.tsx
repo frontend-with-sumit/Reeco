@@ -9,9 +9,20 @@ import Button from "../../shared/components/ButtonComponent/Button";
 
 import "./CartTable.scss";
 import CartItemTable from "./CartItemTable";
+import ModalConfirm from "../../shared/components/Modals/ModalConfirm";
+import { Nullable } from "../../shared/types";
+
+interface ModalInterface {
+	show: boolean;
+	data: Nullable<object>;
+}
 
 const CartTable = () => {
-	const [searchTerm, setSearchTerm] = useState("");
+	const [searchTerm, setSearchTerm] = useState<string>("");
+	const [showConfirmModal, setShowConfirmModal] = useState<ModalInterface>({
+		show: false,
+		data: null,
+	});
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
 		setSearchTerm(e.target.value);
@@ -48,8 +59,22 @@ const CartTable = () => {
 					</ListItem>
 				</div>
 			</List>
-			
-			<CartItemTable />
+
+			<CartItemTable
+				updateStatus={(data: object) =>
+					setShowConfirmModal({ show: true, data })
+				}
+			/>
+
+			<ModalConfirm
+				show={showConfirmModal?.show}
+				onHide={() => setShowConfirmModal({ show: false, data: null })}
+				title="Missing Product"
+				description="Is chicken Breast Fillet urgent?"
+				onConfirm={() => {}}
+				confirmLabel="Yes"
+				cancelLabel="No"
+			/>
 		</div>
 	);
 };

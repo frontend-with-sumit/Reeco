@@ -1,0 +1,42 @@
+.modal {
+	.modal-content {
+		border-radius: 16px;
+		padding: 1.6rem;
+
+		.modal-header {
+			border-bottom: 0;
+
+			.modal-heading {
+				font-size: 2rem;
+				font-weight: 700;
+				margin-bottom: 0;
+			}
+
+			.btn-close {
+				font-size: 1.2rem;
+			}
+		}
+
+		.modal-body {
+			.content {
+				padding-block: 1rem;
+				p {
+					font-size: 1.4rem;
+				}
+			}
+		}
+
+		.modal-footer {
+			border-top: 0;
+
+			.btn-grp {
+				gap: 4rem;
+
+				.btn {
+					font-size: 1.6rem;
+					font-weight: 400;
+				}
+			}
+		}
+	}
+}

@@ -5,7 +5,11 @@ import Button from "../../shared/components/ButtonComponent/Button";
 import Apple from "../../assets/apple.png";
 // import Avocado from "../../assets/avocado.jpg";
 
-const CartItemTable = () => {
+interface Props {
+	updateStatus: (item: object) => void;
+}
+
+const CartItemTable = ({ updateStatus }: Props) => {
 	return (
 		<div className="cart-item-table">
 			<table className="table">
@@ -42,10 +46,12 @@ const CartItemTable = () => {
 									<p className={`badge badge-missing rounded-lg`}></p>
 								</div>
 								<div className="btn-grp">
-									<Button type="text" onClick={() => {}}>
+									{/* FIXME: Update the object with the cart item */}
+									<Button type="text" onClick={() => updateStatus({})}>
 										<PiCheckBold size={18} />
 									</Button>
-									<Button type="text" onClick={() => {}}>
+									{/* FIXME: Update the object with the cart item */}
+									<Button type="text" onClick={() => updateStatus({})}>
 										<IoCloseOutline size={24} />
 									</Button>
 									<Button type="text" onClick={() => {}}>
