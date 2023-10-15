@@ -1,7 +1,7 @@
 import CustomBreadcrumb, {
 	BreadcrumbInterface,
-} from "../../shared/BreadcrumbComponent/CustomBreadcrumb";
-import Button from "../../shared/ButtonComponent/Button";
+} from "../../shared/components/BreadcrumbComponent/CustomBreadcrumb";
+import Button from "../../shared/components/ButtonComponent/Button";
 
 import "./Header.scss";
 

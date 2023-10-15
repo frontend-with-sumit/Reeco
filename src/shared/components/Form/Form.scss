@@ -1,0 +1,42 @@
+@import "../../../colors.scss";
+@import "../../../mixins.scss";
+
+// INPUT
+.inp-comp {
+	min-width: 10rem;
+	text-align: left;
+	border: 1px solid $gray-100;
+	border-radius: 4px;
+	overflow: hidden;
+	color: $text-black;
+	padding-inline: 1.6rem;
+
+	label {
+		font-size: 1.4rem;
+		color: $text-black;
+		margin-bottom: 0.5rem;
+		color: $gray-300;
+
+		&.required::after {
+			content: "*";
+			color: $text-danger;
+			font-size: 1.5rem;
+		}
+	}
+
+	.inp {
+		@include flex-center(0.5rem);
+
+		input {
+			width: 100%;
+			border: none;
+			padding: 1rem;
+			font-size: 1.4rem;
+
+			&:active,
+			&:focus-visible {
+				outline: none;
+			}
+		}
+	}
+}

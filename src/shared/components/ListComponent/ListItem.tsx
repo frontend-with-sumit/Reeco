@@ -3,7 +3,7 @@ interface Props {
 	children?: React.ReactNode;
 }
 
-const MenuItem = ({ text, children }: Props) => {
+const ListItem = ({ text, children }: Props) => {
 	return (
 		<div className="custom-menu-item">
 			{text && <p className="custom-menu-content cursor-pointer">{text}</p>}
@@ -12,4 +12,4 @@ const MenuItem = ({ text, children }: Props) => {
 	);
 };
 
-export default MenuItem;
+export default ListItem;

@@ -1,4 +1,4 @@
-@import "../../colors.scss";
+@import "../../../colors.scss";
 
 .btn {
 	font-size: 1.6rem;
@@ -15,6 +15,10 @@
 		}
 	}
 
+	p {
+		font-size: 1.4rem;
+	}
+
 	&.btn-outline-primary {
 		color: $primary-green;
 		font-weight: 600;
@@ -29,6 +33,16 @@
 		&:hover {
 			background: $primary-green;
 			color: $white;
+		}
+	}
+
+	&.btn-text {
+		padding: 0;
+
+		&:active {
+			background: transparent;
+			// border: none;
+			box-shadow: none;
 		}
 	}
 }

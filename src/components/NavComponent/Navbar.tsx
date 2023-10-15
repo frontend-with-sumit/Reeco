@@ -2,31 +2,31 @@ import { PiCaretDown } from "react-icons/pi";
 import { TfiShoppingCart } from "react-icons/tfi";
 import Dropdown from "react-bootstrap/Dropdown";
 
-import Menu from "../../shared/MenuComponent/Menu";
-import MenuItem from "../../shared/MenuComponent/MenuItem";
+import List from "../../shared/components/ListComponent/List";
+import ListItem from "../../shared/components/ListComponent/ListItem";
 
 import "./Navbar.scss";
 
 const Navbar = () => {
 	return (
 		<div className="navbar">
-			<Menu>
-				<MenuItem>
+			<List>
+				<ListItem>
 					<div className="logo">Reeco</div>
-				</MenuItem>
-				<MenuItem text="Store" />
-				<MenuItem text="Orders" />
-				<MenuItem text="Analytics" />
-			</Menu>
-			<Menu>
-				<MenuItem>
+				</ListItem>
+				<ListItem text="Store" />
+				<ListItem text="Orders" />
+				<ListItem text="Analytics" />
+			</List>
+			<List>
+				<ListItem>
 					<div className="position-relative">
 						<TfiShoppingCart size={24} />
 						{/* FIXME: Update the number dynamically */}
 						<div className="badge">6</div>
 					</div>
-				</MenuItem>
-				<MenuItem>
+				</ListItem>
+				<ListItem>
 					<Dropdown>
 						<Dropdown.Toggle variant="secondary" id="profile-dropdown">
 							Hello, <em>James</em> <PiCaretDown />
@@ -38,8 +38,8 @@ const Navbar = () => {
 							<Dropdown.Item href="#">Logout</Dropdown.Item>
 						</Dropdown.Menu>
 					</Dropdown>
-				</MenuItem>
-			</Menu>
+				</ListItem>
+			</List>
 		</div>
 	);
 };
