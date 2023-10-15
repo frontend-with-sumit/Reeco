@@ -67,10 +67,11 @@
 					font-size: 1.2rem;
 				}
 
-				.badge {
-					padding: 1rem 1.5rem;
-					font-size: 1.2rem;
-					font-weight: 500;
+				.badge-missing,
+				.badge-missing-urgent,
+				.badge-approved {
+					color: $white;
+					border: none;
 				}
 
 				.badge-missing {
@@ -82,6 +83,92 @@
 				.badge-approved {
 					background: $text-success;
 				}
+			}
+		}
+	}
+}
+
+// Edit Modal
+.editModal {
+	.content {
+		padding-block: 1rem;
+		p {
+			font-size: 1.4rem;
+		}
+
+		&-head {
+			h3 {
+				font-weight: 600;
+				font-size: 1.6rem;
+			}
+
+			p {
+				color: $gray-300;
+			}
+		}
+
+		&-body {
+			width: 100%;
+			@include flex-center(3rem);
+			justify-content: flex-start;
+
+			.product-photo {
+				@include size(20rem, 20rem);
+			}
+
+			.product-form {
+				flex: 1;
+				@include flex-center(2rem);
+
+				flex-direction: column;
+
+				&-field {
+					justify-content: space-between;
+					width: 100%;
+					.label {
+						// flex: 1;
+						width: 10rem;
+						p {
+							width: fit-content;
+							text-align: left;
+							font-weight: 500;
+						}
+					}
+				}
+
+				&-input {
+					flex: 1;
+					text-align: center;
+
+					& .input {
+						width: 10rem;
+					}
+
+					span {
+						font-size: 1.4rem;
+					}
+
+					.total-amount {
+						margin-right: 7rem;
+					}
+				}
+			}
+		}
+
+		&-foot {
+			p {
+				font-weight: 600;
+				span {
+					color: $gray-300;
+					font-weight: 500;
+				}
+			}
+
+			.reasons {
+				margin-top: 1.4rem;
+
+				@include flex-center(1rem);
+				justify-content: flex-start;
 			}
 		}
 	}

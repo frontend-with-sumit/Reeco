@@ -6,21 +6,25 @@ import Input from "../../shared/components/Form/Input";
 import List from "../../shared/components/ListComponent/List";
 import ListItem from "../../shared/components/ListComponent/ListItem";
 import Button from "../../shared/components/ButtonComponent/Button";
-
-import "./CartTable.scss";
-import CartItemTable from "./CartItemTable";
 import ModalConfirm from "../../shared/components/Modals/ModalConfirm";
 import { Nullable } from "../../shared/types";
 
+import EditProductModal from "./Modal/EditProductModal";
+import CartItemTable from "./CartItemTable";
+
+import "./CartTable.scss";
+
 interface ModalInterface {
 	show: boolean;
+	type: Nullable<string>;
 	data: Nullable<object>;
 }
 
 const CartTable = () => {
 	const [searchTerm, setSearchTerm] = useState<string>("");
-	const [showConfirmModal, setShowConfirmModal] = useState<ModalInterface>({
+	const [modal, setModal] = useState<ModalInterface>({
 		show: false,
+		type: null,
 		data: null,
 	});
 
@@ -61,19 +65,29 @@ const CartTable = () => {
 			</List>
 
 			<CartItemTable
-				updateStatus={(data: object) =>
-					setShowConfirmModal({ show: true, data })
+				onUpdateProduct={(type: string, data: object) =>
+					setModal({ show: true, type, data })
 				}
 			/>
 
 			<ModalConfirm
-				show={showConfirmModal?.show}
-				onHide={() => setShowConfirmModal({ show: false, data: null })}
+				show={modal?.type === "confirm" && modal?.show}
+				onHide={() => setModal({ show: false, type: null, data: null })}
 				title="Missing Product"
 				description="Is chicken Breast Fillet urgent?"
 				onConfirm={() => {}}
 				confirmLabel="Yes"
 				cancelLabel="No"
+			/>
+
+			<EditProductModal
+				show={modal?.type === "edit" && modal?.show}
+				onHide={() => setModal({ show: false, type: null, data: null })}
+				title="Missing Product"
+				description="Is chicken Breast Fillet urgent?"
+				onConfirm={() => {}}
+				confirmLabel="Send"
+				cancelLabel="Cancel"
 			/>
 		</div>
 	);
