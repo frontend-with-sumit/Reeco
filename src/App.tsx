@@ -67,7 +67,6 @@ function App() {
 
 	return (
 		<>
-			{/* Here, we are only working on the first cart item */}
 			<Navbar count={cartItems?.length} />
 			<div className="container-fluid">
 				<div className="row">

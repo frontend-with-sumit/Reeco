@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 // import { useDispatch } from "react-redux";
-import { isEmpty } from "lodash";
+import { isEmpty, debounce } from "lodash";
 import { FiSearch } from "react-icons/fi";
 import { PiPrinterLight } from "react-icons/pi";
 import toast from "react-hot-toast";
@@ -42,14 +42,26 @@ const CartTable = ({ items }: Props) => {
 	});
 
 	useEffect(() => {
-		if (!isEmpty(items)) {
-			console.log(items);
-			setCartItems(items);
-		}
+		if (!isEmpty(items)) setCartItems(items);
 	}, [items]);
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
-		setSearchTerm(e.target.value);
+	useEffect(() => {
+		const debouncedSearch = debounce((term: string) => handleSearch(term), 500);
+		if (searchTerm) debouncedSearch(searchTerm);
+		else setCartItems(items);
+
+		return () => {
+			debouncedSearch.cancel();
+		};
+	}, [searchTerm]);
+
+	const handleSearch = async (term: string) =>
+		setCartItems(cartItems?.filter((item) => item?.name?.includes(term)));
+
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const { value } = e.target;
+		setSearchTerm(value);
+	};
 
 	const handleOrderStatus = async (
 		itemId: Nullable<number> = null,
