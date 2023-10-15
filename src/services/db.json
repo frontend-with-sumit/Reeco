@@ -10,7 +10,7 @@
 					"price": 60.25,
 					"status": "",
 					"quantity": 1,
-					"category": "Meat"
+					"category": "Food"
 				},
 				{
 					"id": 2,
@@ -19,7 +19,7 @@
 					"price": 20.07,
 					"status": "",
 					"quantity": 3,
-					"cagtegory": "Vegetables"
+					"category": "Food"
 				}
 			],
 			"cart_total": 0

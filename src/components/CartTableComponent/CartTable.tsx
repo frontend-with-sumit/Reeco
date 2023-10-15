@@ -7,7 +7,7 @@ import List from "../../shared/components/ListComponent/List";
 import ListItem from "../../shared/components/ListComponent/ListItem";
 import Button from "../../shared/components/ButtonComponent/Button";
 import ModalConfirm from "../../shared/components/Modals/ModalConfirm";
-import { Nullable } from "../../shared/types";
+import { Cart, Nullable } from "../../shared/types";
 
 import EditProductModal from "./Modal/EditProductModal";
 import CartItemTable from "./CartItemTable";
@@ -20,7 +20,11 @@ interface ModalInterface {
 	data: Nullable<object>;
 }
 
-const CartTable = () => {
+interface Props {
+	cart: Cart;
+}
+
+const CartTable = ({ cart }: Props) => {
 	const [searchTerm, setSearchTerm] = useState<string>("");
 	const [modal, setModal] = useState<ModalInterface>({
 		show: false,
@@ -65,6 +69,7 @@ const CartTable = () => {
 			</List>
 
 			<CartItemTable
+				items={cart?.items}
 				onUpdateProduct={(type: string, data: object) =>
 					setModal({ show: true, type, data })
 				}

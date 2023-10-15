@@ -1,22 +1,23 @@
+import { Cart } from "../../shared/types";
 import DetailItem from "./DetailItem";
 import "./Details.scss";
 
-const Details = () => {
+interface Props {
+	cart: Cart;
+}
+
+const Details = ({ cart }: Props) => {
 	return (
 		<div className="details-container section">
 			<DetailItem title="Supplier" content="East coast fruits & vegetables" />
 			<span className="separator" />
 			<DetailItem title="Shipping Date" content={new Date().toDateString()} />
 			<span className="separator" />
-			{/* FIXME: The amount value should be updated based on the cart value */}
-			<DetailItem title="Total" content={`$ 15,028.3`} />
+			<DetailItem title="Total" content={`$ ${cart?.cart_total}`} />
 			<span className="separator" />
-			{/* FIXME: The category value should be updated based on the redux store */}
-			<DetailItem title="Category" content={"Meat"} />
+			<DetailItem title="Category" content={"Food"} />
 			<span className="separator" />
-			{/* FIXME: The department value should be updated based on the redux store */}
 			<DetailItem title="Department" content={"300-444-678"} />
-			{/* FIXME: The status value should be updated based on the redux store */}
 			<span className="separator" />
 			<DetailItem title="Status" content={"Awaiting your approval"} />
 		</div>

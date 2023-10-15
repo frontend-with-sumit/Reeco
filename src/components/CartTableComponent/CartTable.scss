@@ -74,13 +74,13 @@
 					border: none;
 				}
 
-				.badge-missing {
+				.missing {
 					background: $text-danger-1;
 				}
-				.badge-missing-urgent {
+				.missing-urgent {
 					background: $text-danger-2;
 				}
-				.badge-approved {
+				.approved {
 					background: $text-success;
 				}
 			}
