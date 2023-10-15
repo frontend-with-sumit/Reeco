@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { PiMinusCircleBold, PiPlusCircleBold } from "react-icons/pi";
+import { isEmpty } from "lodash";
 
-import { Nullable } from "../../../shared/types";
+import { CartItem, Nullable } from "../../../shared/types";
 import Input from "../../../shared/components/Form/Input";
 import Badge from "../../../shared/components/BadgeComponent/Badge";
 import Button from "../../../shared/components/ButtonComponent/Button";
+import formatNumber from "../../../shared/utils/formatNumber";
 
 import Avocado from "../../../assets/avocado.jpg";
 
 import "../CartTable.scss";
+import { truncateText } from "../../../shared/utils/stringUtils";
 
 interface Props {
 	show: boolean;
@@ -17,8 +20,9 @@ interface Props {
 	description?: string;
 	confirmLabel?: string;
 	cancelLabel?: string;
+	data?: Nullable<CartItem> | undefined;
 	onHide: () => void;
-	onConfirm: () => void;
+	onConfirm: (id: number, form: { price: number; quantity: number }) => void;
 }
 
 const REASONS = [
@@ -28,14 +32,59 @@ const REASONS = [
 	{ id: 4, text: "Other" },
 ];
 
+interface FormFields {
+	price: string;
+	quantity: string;
+}
+
 const EditProductModal = ({
 	show,
 	confirmLabel,
 	cancelLabel,
+	data,
 	onHide,
 	onConfirm,
 }: Props) => {
 	const [reason, setReason] = useState<Nullable<number>>(null);
+	const [form, setForm] = useState({
+		price: "",
+		quantity: "",
+	});
+
+	useEffect(() => {
+		if (!isEmpty(data)) {
+			setForm({
+				price: data?.price?.toString() || "",
+				quantity: data?.quantity?.toString() || "",
+			});
+		}
+	}, [data]);
+
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target;
+
+		setForm((prev) => ({
+			...prev,
+			[name]: /^(\d*(?:[.]\d*)?|[.]\d+)$/.test(value)
+				? value
+				: prev[name as keyof FormFields],
+		}));
+	};
+
+	const handleIncDec = (type: string = "inc") => {
+		if (type === "dec") {
+			setForm((prev) => ({
+				...prev,
+				quantity: (+prev?.quantity - 1).toString(),
+			}));
+			return;
+		}
+
+		setForm((prev) => ({
+			...prev,
+			quantity: (+prev?.quantity + 1).toString(),
+		}));
+	};
 
 	return (
 		<Modal show={show} onHide={onHide} className="editModal" size="lg" centered>
@@ -43,8 +92,8 @@ const EditProductModal = ({
 			<Modal.Body>
 				<div className="content">
 					<div className="content-head">
-						<h3>Chicken Breast Fillets.....</h3>
-						<p>American Roland</p>
+						<h3>{truncateText(data?.name, 150)}</h3>
+						<p>{data?.brand}</p>
 					</div>
 
 					<div className="content-body">
@@ -59,10 +108,10 @@ const EditProductModal = ({
 								<div className="flex-center product-form-input">
 									<Input
 										name="price"
-										value=""
+										value={form?.price}
 										placeholder="999.99"
 										className="input"
-										onChange={() => {}}
+										onChange={handleChange}
 									/>
 									<span> / 6 * 1LB</span>
 								</div>
@@ -72,15 +121,27 @@ const EditProductModal = ({
 									<p>Quantity</p>
 								</div>
 								<div className="flex-center product-form-input">
-									<PiMinusCircleBold size={24} />
+									<Button
+										type="text"
+										onClick={() => handleIncDec("dec")}
+										disabled={!form?.quantity || +form?.quantity <= 0}
+									>
+										<PiMinusCircleBold size={24} />
+									</Button>
 									<Input
 										name="quantity"
-										value=""
+										value={form?.quantity}
 										placeholder="999.99"
 										className="input"
-										onChange={() => {}}
+										onChange={handleChange}
 									/>
-									<PiPlusCircleBold size={24} />
+									<Button
+										type="text"
+										onClick={() => handleIncDec("inc")}
+										disabled={!form?.quantity || +form?.quantity >= 999}
+									>
+										<PiPlusCircleBold size={24} />
+									</Button>
 									<span> X 6 * 1LB</span>
 								</div>
 							</div>
@@ -89,7 +150,13 @@ const EditProductModal = ({
 									<p>Total</p>
 								</div>
 								<div className="flex-center product-form-input">
-									<span className="total-amount">$ 9,997,000</span>
+									<span className="total-amount">
+										${" "}
+										{formatNumber(
+											Math.round((+form?.price || 0) / 6) *
+												((+form?.quantity || 0) * 6)
+										)}
+									</span>
 								</div>
 							</div>
 						</div>
@@ -123,7 +190,14 @@ const EditProductModal = ({
 					/>
 					<Button
 						title={confirmLabel || "Confirm"}
-						onClick={onConfirm}
+						onClick={() => {
+							if (data) {
+								onConfirm(data?.id, {
+									price: +form?.price,
+									quantity: +form?.quantity,
+								});
+							}
+						}}
 						className="confirm rounded-lg"
 					/>
 				</div>

@@ -16,9 +16,9 @@
       "cartId": 1,
       "name": "Chicken Filette",
       "brand": "Hormel Black",
-      "price": 60.25,
+      "price": 60,
       "status": "missing",
-      "quantity": 1,
+      "quantity": 5,
       "category": "Food"
     },
     {
