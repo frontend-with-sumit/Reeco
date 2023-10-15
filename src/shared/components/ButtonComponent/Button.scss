@@ -5,6 +5,10 @@
 	padding: 0.5rem 2.5rem;
 	text-wrap: nowrap;
 
+	&:active {
+		border: none;
+	}
+
 	&.btn-primary {
 		background: $primary-green;
 		border-color: $primary-green;
@@ -43,6 +47,10 @@
 			background: transparent;
 			// border: none;
 			box-shadow: none;
+		}
+
+		&:hover {
+			font-weight: 600 !important;
 		}
 	}
 }
