@@ -3,7 +3,7 @@ import "./Details.scss";
 
 const Details = () => {
 	return (
-		<div className="details-container">
+		<div className="details-container section">
 			<DetailItem title="Supplier" content="East coast fruits & vegetables" />
 			<span className="separator" />
 			<DetailItem title="Shipping Date" content={new Date().toDateString()} />

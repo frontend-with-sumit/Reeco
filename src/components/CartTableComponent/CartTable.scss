@@ -1,0 +1,88 @@
+@import "../../colors.scss";
+@import "../../mixins.scss";
+
+.cart-table {
+	padding-inline: 2.8rem !important;
+
+	&-header {
+		& .search-input {
+			width: 40rem !important;
+		}
+
+		&--right {
+			@include flex-center(5rem);
+		}
+	}
+
+	.cart-item-table {
+		font-size: 1.4rem;
+		width: 100%;
+		margin-top: 2.4rem;
+
+		table {
+			border-collapse: separate;
+			border-spacing: 0;
+
+			thead tr td {
+				padding-block: 1.6rem;
+				font-weight: 600;
+
+				border: 1px solid $gray-100;
+				border-left: none;
+				border-right: none;
+
+				&:first-child {
+					border-left: 1px solid $gray-100;
+					border-top-left-radius: 8px;
+				}
+				&:last-child {
+					width: 30rem;
+					border-right: 1px solid $gray-100;
+					border-top-right-radius: 8px;
+				}
+				&:nth-child(2) {
+					width: 30rem;
+				}
+			}
+
+			tbody {
+				tr {
+					padding-block: 1rem;
+				}
+				tr td {
+					padding-block: 2rem;
+					vertical-align: middle;
+
+					&:last-child {
+						background: $gray-light-100;
+						padding-inline: 1.4rem;
+					}
+				}
+
+				img {
+					@include size(5rem, 5rem);
+				}
+
+				.btn {
+					font-size: 1.2rem;
+				}
+
+				.badge {
+					padding: 1rem 1.5rem;
+					font-size: 1.2rem;
+					font-weight: 500;
+				}
+
+				.badge-missing {
+					background: $text-danger-1;
+				}
+				.badge-missing-urgent {
+					background: $text-danger-2;
+				}
+				.badge-approved {
+					background: $text-success;
+				}
+			}
+		}
+	}
+}

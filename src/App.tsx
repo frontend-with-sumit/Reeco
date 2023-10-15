@@ -1,7 +1,9 @@
-import "./App.scss";
+import CartTable from "./components/CartTableComponent/CartTable";
 import Details from "./components/DetailsComponent/Details";
 import Header from "./components/HeaderComponent/Header";
 import Navbar from "./components/NavComponent/Navbar";
+
+import "./App.scss";
 
 function App() {
 	return (
@@ -18,7 +20,9 @@ function App() {
 						</section>
 					</div>
 					<div className="col-sm-12">
-						<h4>ItemTable</h4>
+						<section>
+							<CartTable />
+						</section>
 					</div>
 				</div>
 			</div>
