@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { PiMinusCircleBold, PiPlusCircleBold } from "react-icons/pi";
+import { PiMinusCircleFill, PiPlusCircleFill } from "react-icons/pi";
 import { isEmpty } from "lodash";
 
 import { CartItem, Nullable } from "../../../shared/types";
@@ -126,7 +126,7 @@ const EditProductModal = ({
 										onClick={() => handleIncDec("dec")}
 										disabled={!form?.quantity || +form?.quantity <= 0}
 									>
-										<PiMinusCircleBold size={24} />
+										<PiMinusCircleFill size={24} color="#66bb6a" />
 									</Button>
 									<Input
 										name="quantity"
@@ -140,7 +140,7 @@ const EditProductModal = ({
 										onClick={() => handleIncDec("inc")}
 										disabled={!form?.quantity || +form?.quantity >= 999}
 									>
-										<PiPlusCircleBold size={24} />
+										<PiPlusCircleFill size={24} color="#66bb6a" />
 									</Button>
 									<span> X 6 * 1LB</span>
 								</div>
