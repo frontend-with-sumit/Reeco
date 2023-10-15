@@ -5,7 +5,7 @@ import { Nullable } from "../../types";
 
 interface Props {
 	name: string;
-	value: string;
+	value: string | number;
 	label?: string;
 	className?: string;
 	type?: string;
@@ -30,7 +30,7 @@ const Input = ({
 	isRequired,
 }: Props) => {
 	return (
-		<div className={classHelper("inp-comp", className)}>
+		<div className={classHelper("inp-comp", className || "")}>
 			{label && (
 				<label htmlFor={name} className={`${isRequired ? "required" : ""}`}>
 					{label}

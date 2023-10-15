@@ -43,7 +43,7 @@ const CartItemTable = ({
 							<td>{`$${item?.price} / 6 * 1LB`}</td>
 							<td>{`${item?.quantity} X 6 * 1LB`}</td>
 							<td>{`$${
-								Math.round(item?.price / 6) * (item?.quantity * 6)
+								Math.round((item?.price || 0) / 6) * ((item?.quantity || 0) * 6)
 							}`}</td>
 							<td>
 								<div className="flex-center justify-content-between">
@@ -89,7 +89,7 @@ const CartItemTable = ({
 										</Button>
 										<Button
 											type="text"
-											onClick={() => onUpdateProduct("edit", { id: item?.id })}
+											onClick={() => onUpdateProduct("edit", item)}
 										>
 											<p>Edit</p>
 										</Button>
