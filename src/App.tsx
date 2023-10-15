@@ -1,4 +1,5 @@
 import "./App.scss";
+import Details from "./components/DetailsComponent/Details";
 import Header from "./components/HeaderComponent/Header";
 import Navbar from "./components/NavComponent/Navbar";
 
@@ -12,7 +13,9 @@ function App() {
 						<Header />
 					</div>
 					<div className="col-sm-12">
-						<h4>Detail</h4>
+						<section>
+							<Details />
+						</section>
 					</div>
 					<div className="col-sm-12">
 						<h4>ItemTable</h4>
