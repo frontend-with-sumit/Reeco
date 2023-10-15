@@ -1,16 +1,18 @@
 import { PiCheckBold } from "react-icons/pi";
 import { IoCloseOutline } from "react-icons/io5";
-import Button from "../../shared/components/ButtonComponent/Button";
 
-import Apple from "../../assets/apple.png";
+import Button from "../../shared/components/ButtonComponent/Button";
 import Badge from "../../shared/components/BadgeComponent/Badge";
-// import Avocado from "../../assets/avocado.jpg";
+import { CartItem } from "../../shared/types";
+
+import Avocado from "../../assets/avocado.jpg";
 
 interface Props {
+	items: CartItem[];
 	onUpdateProduct: (type: string, item: object) => void;
 }
 
-const CartItemTable = ({ onUpdateProduct }: Props) => {
+const CartItemTable = ({ items, onUpdateProduct }: Props) => {
 	return (
 		<div className="cart-item-table">
 			<table className="table">
@@ -26,51 +28,66 @@ const CartItemTable = ({ onUpdateProduct }: Props) => {
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>
-							<img src={Apple} alt="Apple" className="img" />
-						</td>
-						<td>Chicken Breast Fillets, Boneless matuu marinated chiken</td>
-						<td>Hormel Black</td>
-						<td>{`$${60.07} / 6 * 1LB`}</td>
-						<td>{`$${0} X 6 * 1LB`}</td>
-						<td>{`$${0}`}</td>
-						<td>
-							<div className="flex-center justify-content-between">
-								{/*
+					{items?.map((item) => (
+						<tr key={item?.id}>
+							<td>
+								<img src={Avocado} alt="Avocado" className="img" />
+							</td>
+							<td>{item?.name}</td>
+							<td>{item?.category}</td>
+							<td>{`$${item?.price} / 6 * 1LB`}</td>
+							<td>{`${item?.quantity} X 6 * 1LB`}</td>
+							<td>{`$${
+								Math.round(item?.price / 6) * (item?.quantity * 6)
+							}`}</td>
+							<td>
+								<div className="flex-center justify-content-between">
+									{/*
                                     TODO:
                                     1. Change the color of the button based on status
-                                    2. only visible when there is a status
                                     3. change the text-btn color based on status
-                                    */}
-								<div>
-									<Badge text="Missing" className="badge-missing-urgent" />
+								*/}
+									<div>
+										{item?.status && (
+											<Badge
+												text={item?.status || ""}
+												className={item?.status}
+											/>
+										)}
+									</div>
+									<div className="btn-grp">
+										<Button
+											type="text"
+											onClick={() =>
+												onUpdateProduct("confirm", {
+													id: item?.id,
+													status: "approved",
+												})
+											}
+										>
+											<PiCheckBold size={18} />
+										</Button>
+										<Button
+											type="text"
+											onClick={() =>
+												onUpdateProduct("confirm", {
+													id: item?.id,
+												})
+											}
+										>
+											<IoCloseOutline size={24} />
+										</Button>
+										<Button
+											type="text"
+											onClick={() => onUpdateProduct("edit", { id: item?.id })}
+										>
+											<p>Edit</p>
+										</Button>
+									</div>
 								</div>
-								<div className="btn-grp">
-									{/* FIXME: Update the object with the cart item */}
-									<Button
-										type="text"
-										onClick={() => onUpdateProduct("confirm", {})}
-									>
-										<PiCheckBold size={18} />
-									</Button>
-									{/* FIXME: Update the object with the cart item */}
-									<Button
-										type="text"
-										onClick={() => onUpdateProduct("confirm", {})}
-									>
-										<IoCloseOutline size={24} />
-									</Button>
-									<Button
-										type="text"
-										onClick={() => onUpdateProduct("edit", {})}
-									>
-										<p>Edit</p>
-									</Button>
-								</div>
-							</div>
-						</td>
-					</tr>
+							</td>
+						</tr>
+					))}
 				</tbody>
 			</table>
 		</div>

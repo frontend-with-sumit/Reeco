@@ -11,7 +11,7 @@ interface ParamsType {
 const makeApiRequest = async ({ url, urlParams, method, data }: ParamsType) => {
 	try {
 		const response: AxiosResponse = await axios({
-			url: baseURL + url + "/" + urlParams,
+			url: `${baseURL}${url}${urlParams ? "/" + urlParams : ""}`,
 			method,
 			data,
 		});

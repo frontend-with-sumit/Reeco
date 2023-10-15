@@ -7,7 +7,11 @@ import ListItem from "../../shared/components/ListComponent/ListItem";
 
 import "./Navbar.scss";
 
-const Navbar = () => {
+interface Props {
+	count?: number;
+}
+
+const Navbar = ({ count }: Props) => {
 	return (
 		<div className="navbar">
 			<List>
@@ -23,7 +27,7 @@ const Navbar = () => {
 					<div className="position-relative">
 						<TfiShoppingCart size={24} />
 						{/* FIXME: Update the number dynamically */}
-						<div className="badge">6</div>
+						{count && <div className="badge">{count}</div>}
 					</div>
 				</ListItem>
 				<ListItem>
