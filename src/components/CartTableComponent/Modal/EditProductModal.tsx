@@ -13,6 +13,7 @@ import Avocado from "../../../assets/avocado.jpg";
 
 import "../CartTable.scss";
 import { truncateText } from "../../../shared/utils/stringUtils";
+import toast from "react-hot-toast";
 
 interface Props {
 	show: boolean;
@@ -192,6 +193,11 @@ const EditProductModal = ({
 						title={confirmLabel || "Confirm"}
 						onClick={() => {
 							if (data) {
+								if (!form?.price || +form?.price < 0)
+									return toast.error(
+										"Price should be greater than or equal to zero"
+									);
+
 								onConfirm(data?.id, {
 									price: +form?.price,
 									quantity: +form?.quantity,
