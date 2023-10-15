@@ -1,40 +1,13 @@
 {
-	"products": [
-		{
-			"id": 1,
-			"name": "Chicken Breast Fillets",
-			"picture": "/assets/apple.png",
-			"brand": "Hormel Black",
-			"price": 60.07,
-			"quantityInStock": 20,
-			"supplier": "East coast fruits & vegetables",
-			"category": "Meat"
-		},
-		{
-			"id": 2,
-			"name": "Tomato Puree",
-			"picture": "/assets/avocado.jpg",
-			"brand": "Hormel Black",
-			"price": 20.07,
-			"quantityInStock": 10,
-			"supplier": "East coast fruits & vegetables",
-			"category": "Vegetables"
-		}
-	],
 	"cart": [
 		{
 			"id": 1,
-			"customer": {
-				"customer_id": 3,
-				"name": "John Doe",
-				"email": "john@email.com"
-			},
 			"items": [
 				{
 					"id": 1,
 					"name": "Chicken Filette",
 					"brand": "Hormel Black",
-					"price": 60.1,
+					"price": 60.25,
 					"status": "",
 					"quantity": 1,
 					"category": "Meat"
@@ -48,7 +21,8 @@
 					"quantity": 3,
 					"cagtegory": "Vegetables"
 				}
-			]
+			],
+			"cart_total": 0
 		}
 	]
 }
