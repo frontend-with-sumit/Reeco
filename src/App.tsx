@@ -1,6 +1,7 @@
-import { useEffect } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+
+import { makeApiRequest } from "./shared/utils/apiRequest";
 
 import CartTable from "./components/CartTableComponent/CartTable";
 import Details from "./components/DetailsComponent/Details";
@@ -9,23 +10,32 @@ import Navbar from "./components/NavComponent/Navbar";
 
 import "./App.scss";
 
+interface CartItem {
+	id: number;
+	name: string;
+	brand: string;
+	price: number;
+	status?: string;
+	quantity: number;
+	category: string;
+}
+
 function App() {
-	// Here, we are working on the items in cart 1
-	// later it can be made dynamic based on the users
-	const URL = "http://localhost:3000/cart/1";
+	const [items, setItems] = useState({} as CartItem);
 
 	useEffect(() => {
-		fetchProducts();
+		fetchCart();
 	}, []);
 
-	const fetchProducts = async () => {
+	const fetchCart = async () => {
 		try {
-			const res = await axios({
-				baseURL: URL,
+			const res = await makeApiRequest({
+				url: "/cart",
+				urlParams: 1,
 				method: "GET",
 			});
 
-			console.log(res.data);
+			if (res.status === 200) setItems(res.data);
 		} catch (err) {
 			toast.error("Something went wrong");
 		}
