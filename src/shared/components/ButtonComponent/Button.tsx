@@ -5,11 +5,19 @@ interface Props {
 	title?: string;
 	type?: string;
 	className?: string;
-	onClick: () => void;
+	disabled?: boolean;
 	children?: React.ReactNode;
+	onClick: () => void;
 }
 
-const Button = ({ type, title, className, children, onClick }: Props) => {
+const Button = ({
+	type,
+	title,
+	className = "",
+	disabled,
+	children,
+	onClick,
+}: Props) => {
 	return (
 		<button
 			className={classHelper(
@@ -23,6 +31,7 @@ const Button = ({ type, title, className, children, onClick }: Props) => {
 				className
 			)}
 			onClick={onClick}
+			disabled={disabled}
 		>
 			{title}
 			{children}

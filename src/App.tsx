@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 
 import { makeApiRequest } from "./shared/utils/apiRequest";
@@ -10,29 +10,56 @@ import Details from "./components/DetailsComponent/Details";
 import Header from "./components/HeaderComponent/Header";
 import Navbar from "./components/NavComponent/Navbar";
 
-import { populateCart } from "./store/reducers";
+// import { populateCart } from "./store/reducers";
 
 import "./App.scss";
-import { RootState } from "./store";
+// import { RootState } from "./store";
+import { Cart, CartItem } from "./shared/types";
+
+/**
+ * Assumptions:
+ * 1. Here, we are assuming that the logged in user cart id is 1
+ */
 
 function App() {
-	const dispatch = useDispatch();
-	const { carts } = useSelector((state: RootState) => ({
-		carts: state?.carts,
-	}));
+	// const dispatch = useDispatch();
+	// const { carts } = useSelector((state: RootState) => ({
+	// 	carts: state?.carts,
+	// }));
+
+	const [cart, setCart] = useState<Cart>();
+	const [cartItems, setCartItems] = useState<CartItem[]>();
 
 	useEffect(() => {
 		fetchCart();
+		fetchCartItems();
 	}, []);
 
 	const fetchCart = async () => {
 		try {
 			const res = await makeApiRequest({
-				url: "/cart",
+				url: "/cart/1/",
 				method: "GET",
 			});
 
-			if (res.status === 200) dispatch(populateCart(res.data));
+			if (res.status === 200) {
+				setCart(res.data);
+			}
+		} catch (err) {
+			toast.error("Something went wrong");
+		}
+	};
+
+	const fetchCartItems = async () => {
+		try {
+			const res = await makeApiRequest({
+				url: "/cart/1/items",
+				method: "GET",
+			});
+
+			if (res.status === 200) {
+				setCartItems(res.data);
+			}
 		} catch (err) {
 			toast.error("Something went wrong");
 		}
@@ -41,7 +68,7 @@ function App() {
 	return (
 		<>
 			{/* Here, we are only working on the first cart item */}
-			<Navbar count={carts[0]?.items?.length} />
+			<Navbar count={cartItems?.length} />
 			<div className="container-fluid">
 				<div className="row">
 					<div className="col-sm-12 p-0">
@@ -49,12 +76,12 @@ function App() {
 					</div>
 					<div className="col-sm-12">
 						<section>
-							<Details cart={carts[0]} />
+							<Details cart={cart} />
 						</section>
 					</div>
 					<div className="col-sm-12">
 						<section>
-							<CartTable cart={carts[0]} />
+							<CartTable items={cartItems} />
 						</section>
 					</div>
 				</div>

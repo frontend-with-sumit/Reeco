@@ -14,19 +14,19 @@ const cartSlice = createSlice({
 	initialState,
 	reducers: {
 		populateCart: (state, action) => {
-			const stateClone = { ...state };
-			stateClone.carts = action.payload;
-
-			return stateClone;
+			state.carts = action.payload;
 		},
 		updateStatus: (state, action) => {
 			const { item_id, status } = action.payload;
-			const stateClone = { ...state };
-			const item = stateClone.carts[0]?.items?.find(
-				(item) => item?.id === item_id
+			const cart = state.carts.find((cart) =>
+				cart.items.some((item) => item.id === item_id)
 			);
-			if (item) item.status = status;
-			return stateClone;
+			if (cart) {
+				const item = cart.items.find((item) => item.id === item_id);
+				if (item) {
+					item.status = status;
+				}
+			}
 		},
 	},
 });

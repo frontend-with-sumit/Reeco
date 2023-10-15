@@ -9,6 +9,11 @@
 		border: none;
 	}
 
+	&:disabled {
+		border: none;
+		cursor: not-allowed;
+	}
+
 	&.btn-primary {
 		background: $primary-green;
 		border: none;

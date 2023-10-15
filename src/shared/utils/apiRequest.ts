@@ -4,14 +4,13 @@ const baseURL = "http://localhost:3000";
 
 interface ParamsType {
 	url: string;
-	urlParams?: number | string;
 	method?: string;
 	data?: object;
 }
-const makeApiRequest = async ({ url, urlParams, method, data }: ParamsType) => {
+const makeApiRequest = async ({ url, method, data }: ParamsType) => {
 	try {
 		const response: AxiosResponse = await axios({
-			url: `${baseURL}${url}${urlParams ? "/" + urlParams : ""}`,
+			url: `${baseURL}${url}`,
 			method,
 			data,
 		});

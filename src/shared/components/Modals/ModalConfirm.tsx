@@ -11,6 +11,7 @@ interface Props {
 	cancelLabel?: string;
 	onHide: () => void;
 	onConfirm: () => void;
+	onCancel: () => void;
 }
 
 const ModalConfirm = ({
@@ -21,6 +22,7 @@ const ModalConfirm = ({
 	cancelLabel,
 	onHide,
 	onConfirm,
+	onCancel,
 }: Props) => {
 	return (
 		<Modal show={show} onHide={onHide} centered>
@@ -39,7 +41,14 @@ const ModalConfirm = ({
 					<Button
 						type="text"
 						title={cancelLabel || "Close"}
-						onClick={onHide}
+						onClick={() => {
+							if (typeof onCancel === "function") {
+								onHide();
+								onCancel();
+								return;
+							}
+							onHide();
+						}}
 						className="cancel"
 					/>
 					<Button
