@@ -3,13 +3,14 @@ import { IoCloseOutline } from "react-icons/io5";
 import Button from "../../shared/components/ButtonComponent/Button";
 
 import Apple from "../../assets/apple.png";
+import Badge from "../../shared/components/BadgeComponent/Badge";
 // import Avocado from "../../assets/avocado.jpg";
 
 interface Props {
-	updateStatus: (item: object) => void;
+	onUpdateProduct: (type: string, item: object) => void;
 }
 
-const CartItemTable = ({ updateStatus }: Props) => {
+const CartItemTable = ({ onUpdateProduct }: Props) => {
 	return (
 		<div className="cart-item-table">
 			<table className="table">
@@ -43,18 +44,27 @@ const CartItemTable = ({ updateStatus }: Props) => {
                                     3. change the text-btn color based on status
                                     */}
 								<div>
-									<p className={`badge badge-missing rounded-lg`}></p>
+									<Badge text="Missing" className="badge-missing-urgent" />
 								</div>
 								<div className="btn-grp">
 									{/* FIXME: Update the object with the cart item */}
-									<Button type="text" onClick={() => updateStatus({})}>
+									<Button
+										type="text"
+										onClick={() => onUpdateProduct("confirm", {})}
+									>
 										<PiCheckBold size={18} />
 									</Button>
 									{/* FIXME: Update the object with the cart item */}
-									<Button type="text" onClick={() => updateStatus({})}>
+									<Button
+										type="text"
+										onClick={() => onUpdateProduct("confirm", {})}
+									>
 										<IoCloseOutline size={24} />
 									</Button>
-									<Button type="text" onClick={() => {}}>
+									<Button
+										type="text"
+										onClick={() => onUpdateProduct("edit", {})}
+									>
 										<p>Edit</p>
 									</Button>
 								</div>

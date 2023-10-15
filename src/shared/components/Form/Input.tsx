@@ -46,7 +46,7 @@ const Input = ({
 					value={value}
 					onChange={(event: ChangeEvent<HTMLInputElement>) => onChange(event)}
 				/>
-				{rightIcon || "Right"}
+				{rightIcon}
 			</div>
 		</div>
 	);

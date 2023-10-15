@@ -1,3 +1,6 @@
+@import "../../../colors.scss";
+@import "../../../mixins.scss";
+
 .modal {
 	.modal-content {
 		border-radius: 16px;
@@ -17,11 +20,20 @@
 			}
 		}
 
-		.modal-body {
-			.content {
-				padding-block: 1rem;
+		.content {
+			padding-block: 1rem;
+			p {
+				font-size: 1.4rem;
+			}
+
+			&-head {
+				h3 {
+					font-weight: 600;
+					font-size: 1.6rem;
+				}
+
 				p {
-					font-size: 1.4rem;
+					color: $gray-300;
 				}
 			}
 		}

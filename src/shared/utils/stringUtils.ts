@@ -1,3 +1,6 @@
-export const classHelper = (defaultClass: string, otherClass: string = "") => {
-	return [defaultClass, otherClass].join(" ");
+export const classHelper = (
+	defaultClass: string,
+	...otherClasses: string[]
+) => {
+	return [defaultClass, ...otherClasses].join(" ");
 };
